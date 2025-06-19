@@ -6,8 +6,8 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "PortugaFi - Finanças Descentralizadas",
-  description: "Conecte-se ao futuro das finanças com PortugaFi",
+  title: "PortugalFi - Portuguese Heritage & Progressive Finance",
+  description: "Dedicated to Portuguese heritage, culture, and building a stable progressive economy with TPulseFi",
     generator: 'v0.dev'
 }
 
@@ -17,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt">
+    <html lang="en">
       <body className={inter.className}>{children}</body>
     </html>
   )

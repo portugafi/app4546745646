@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ArrowLeft, Coins, Gift } from "lucide-react"
 import { useRouter } from "next/navigation"
+import Image from "next/image"
 
 export default function AirdropPage() {
   const router = useRouter()
@@ -37,11 +38,11 @@ export default function AirdropPage() {
 
   const handleClaim = () => {
     setClaimed(true)
-    // Aqui seria implementada a lógica real do claim
+    // Here would be implemented the real claim logic
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-pink-900 to-indigo-900 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-red-900 via-green-900 to-yellow-800 p-4">
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <Button
@@ -51,122 +52,122 @@ export default function AirdropPage() {
           className="bg-white/10 border-white/20 text-white hover:bg-white/20"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
-          Voltar
+          Back
         </Button>
         <div className="flex items-center">
-          <div className="w-8 h-8 bg-gradient-to-r from-purple-400 to-pink-600 rounded-full flex items-center justify-center mr-2">
-            <span className="text-sm font-bold text-white">PF</span>
+          <div className="w-8 h-8 relative mr-2">
+            <Image src="/portugalfi-logo.png" alt="PortugalFi Logo" fill className="object-contain" />
           </div>
-          <span className="text-white font-semibold">PortugaFi</span>
+          <span className="text-white font-semibold">PortugalFi</span>
         </div>
       </div>
 
       <div className="max-w-2xl mx-auto">
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-purple-400 to-pink-600 rounded-full flex items-center justify-center animate-pulse">
+          <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-yellow-400 to-red-600 rounded-full flex items-center justify-center animate-pulse">
             <Gift className="w-10 h-10 text-white" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Airdrop PortugaFi</h1>
-          <p className="text-xl text-purple-200">Receba tokens PFI gratuitamente!</p>
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">PortugalFi Airdrop</h1>
+          <p className="text-xl text-yellow-200">Receive PTF tokens for free!</p>
         </div>
 
         {/* Countdown */}
         <Card className="bg-white/10 backdrop-blur-lg border-white/20 mb-8">
           <CardHeader>
-            <CardTitle className="text-white text-center">Tempo Restante</CardTitle>
+            <CardTitle className="text-white text-center">Time Remaining</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-4 gap-4 text-center">
               <div className="bg-white/10 rounded-lg p-4">
                 <div className="text-3xl font-bold text-white">{timeLeft.days}</div>
-                <div className="text-purple-200 text-sm">Dias</div>
+                <div className="text-yellow-200 text-sm">Days</div>
               </div>
               <div className="bg-white/10 rounded-lg p-4">
                 <div className="text-3xl font-bold text-white">{timeLeft.hours}</div>
-                <div className="text-purple-200 text-sm">Horas</div>
+                <div className="text-yellow-200 text-sm">Hours</div>
               </div>
               <div className="bg-white/10 rounded-lg p-4">
                 <div className="text-3xl font-bold text-white">{timeLeft.minutes}</div>
-                <div className="text-purple-200 text-sm">Minutos</div>
+                <div className="text-yellow-200 text-sm">Minutes</div>
               </div>
               <div className="bg-white/10 rounded-lg p-4">
                 <div className="text-3xl font-bold text-white">{timeLeft.seconds}</div>
-                <div className="text-purple-200 text-sm">Segundos</div>
+                <div className="text-yellow-200 text-sm">Seconds</div>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Moeda e Claim */}
+        {/* Coin and Claim */}
         <Card className="bg-white/10 backdrop-blur-lg border-white/20 mb-8">
           <CardContent className="p-8 text-center">
-            {/* Moeda Animada */}
+            {/* Animated Coin */}
             <div className="relative mb-8">
-              <div className="w-32 h-32 mx-auto bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center animate-bounce shadow-2xl">
-                <Coins className="w-16 h-16 text-white" />
+              <div className="w-32 h-32 mx-auto relative animate-bounce">
+                <Image src="/portugalfi-logo.png" alt="PTF Token" fill className="object-contain" />
               </div>
-              <div className="absolute inset-0 w-32 h-32 mx-auto bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full opacity-20 animate-ping"></div>
+              <div className="absolute inset-0 w-32 h-32 mx-auto bg-gradient-to-r from-yellow-400 to-red-500 rounded-full opacity-20 animate-ping"></div>
             </div>
 
-            <h3 className="text-2xl font-bold text-white mb-2">1,000 PFI</h3>
-            <p className="text-purple-200 mb-8">Tokens disponíveis para claim</p>
+            <h3 className="text-2xl font-bold text-white mb-2">1,000 PTF</h3>
+            <p className="text-yellow-200 mb-8">Tokens available for claim</p>
 
             <Button
               onClick={handleClaim}
               disabled={claimed}
-              className="w-full bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-gradient-to-r from-green-600 to-red-600 hover:from-green-700 hover:to-red-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {claimed ? (
                 <div className="flex items-center justify-center">
                   <Coins className="mr-2 h-5 w-5" />
-                  Tokens Reclamados!
+                  Tokens Claimed!
                 </div>
               ) : (
                 <div className="flex items-center justify-center">
                   <Gift className="mr-2 h-5 w-5" />
-                  Reclamar Tokens
+                  Claim Tokens
                 </div>
               )}
             </Button>
 
             {claimed && (
               <div className="mt-4 p-4 bg-green-500/20 border border-green-500/30 rounded-lg">
-                <p className="text-green-200">✅ Parabéns! Seus tokens PFI foram enviados para sua carteira.</p>
+                <p className="text-green-200">✅ Congratulations! Your PTF tokens have been sent to your wallet.</p>
               </div>
             )}
           </CardContent>
         </Card>
 
-        {/* Informações do Airdrop */}
+        {/* Airdrop Information */}
         <Card className="bg-white/10 backdrop-blur-lg border-white/20">
           <CardHeader>
-            <CardTitle className="text-white">Como Funciona</CardTitle>
+            <CardTitle className="text-white">How It Works</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4 text-purple-200">
+          <CardContent className="space-y-4 text-yellow-200">
             <div className="flex items-start">
-              <div className="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center mr-3 mt-0.5">
+              <div className="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center mr-3 mt-0.5">
                 <span className="text-white text-sm font-bold">1</span>
               </div>
-              <p>Conecte sua carteira compatível</p>
+              <p>Connect your compatible wallet</p>
             </div>
             <div className="flex items-start">
-              <div className="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center mr-3 mt-0.5">
+              <div className="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center mr-3 mt-0.5">
                 <span className="text-white text-sm font-bold">2</span>
               </div>
-              <p>Clique no botão "Reclamar Tokens"</p>
+              <p>Click the "Claim Tokens" button</p>
             </div>
             <div className="flex items-start">
-              <div className="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center mr-3 mt-0.5">
+              <div className="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center mr-3 mt-0.5">
                 <span className="text-white text-sm font-bold">3</span>
               </div>
-              <p>Confirme a transação em sua carteira</p>
+              <p>Confirm the transaction in your wallet</p>
             </div>
             <div className="flex items-start">
-              <div className="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center mr-3 mt-0.5">
+              <div className="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center mr-3 mt-0.5">
                 <span className="text-white text-sm font-bold">4</span>
               </div>
-              <p>Receba seus tokens PFI gratuitamente!</p>
+              <p>Receive your PTF tokens for free!</p>
             </div>
           </CardContent>
         </Card>

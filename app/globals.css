@@ -95,7 +95,32 @@
   animation-delay: 4s;
 }
 
-/* Responsividade adicional */
+/* Portuguese flag colors */
+.bg-portugal-green {
+  background-color: #006600;
+}
+
+.bg-portugal-red {
+  background-color: #ff0000;
+}
+
+.bg-portugal-gold {
+  background-color: #ffd700;
+}
+
+.text-portugal-green {
+  color: #006600;
+}
+
+.text-portugal-red {
+  color: #ff0000;
+}
+
+.text-portugal-gold {
+  color: #ffd700;
+}
+
+/* Mobile responsiveness */
 @media (max-width: 768px) {
   .text-4xl {
     @apply text-3xl;
