@@ -301,7 +301,7 @@ export default function AirdropPage() {
       >
         <h1 className="text-3xl font-bold tracking-tighter">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-200 via-white to-gray-300">
-            TPF Airdrop
+            PTF Airdrop
           </span>
         </h1>
         <p className="text-gray-400 text-sm mt-1">Claim your daily TPF tokens</p>
@@ -320,7 +320,7 @@ export default function AirdropPage() {
               <span className="text-gray-400 text-xs">Available for Airdrop</span>
               <div className="flex items-center">
                 <span className="text-white font-medium">{formatBalance(contractBalance)}</span>
-                <span className="text-gray-400 text-xs ml-1">TPF</span>
+                <span className="text-gray-400 text-xs ml-1">PTF</span>
                 <button
                   onClick={fetchContractBalance}
                   disabled={isRefreshingBalance}
