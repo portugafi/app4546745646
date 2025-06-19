@@ -9,6 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.0.0",
     "@react-three/drei": "latest",
     "@react-three/fiber": "latest",
     "@worldcoin/minikit-js": "latest",
