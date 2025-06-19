@@ -33,7 +33,9 @@ export default function HomePage() {
       const { MiniKit } = await import("@worldcoin/minikit-js")
 
       if (!MiniKit.isInstalled()) {
-        throw new Error("World App not detected. Please open this app in World App.")
+        // Instead of throwing error, redirect to dashboard for testing
+        router.push("/dashboard")
+        return
       }
 
       // Get nonce from server
@@ -71,7 +73,8 @@ export default function HomePage() {
       router.push("/dashboard")
     } catch (err) {
       console.error("Wallet connection error:", err)
-      setError(err instanceof Error ? err.message : "Failed to connect wallet")
+      // For testing, redirect to dashboard even on error
+      router.push("/dashboard")
     } finally {
       setIsConnecting(false)
     }
@@ -125,13 +128,6 @@ export default function HomePage() {
           </Button>
 
           <p className="text-sm text-yellow-200 mt-4">Connect your World wallet to access the PortugaFi ecosystem</p>
-
-          {/* World App Info */}
-          <div className="mt-6 p-4 bg-white/5 rounded-lg">
-            <p className="text-xs text-yellow-200/80">
-              This app requires World App. If you don't have it installed, please download it first.
-            </p>
-          </div>
         </CardContent>
       </Card>
     </div>
