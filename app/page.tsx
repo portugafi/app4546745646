@@ -7,18 +7,6 @@ import { Wallet, ArrowRight, Loader2 } from "lucide-react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 
-type MiniAppWalletAuthSuccessPayload = {
-  address: string
-  signature: string
-  message: string
-  chainId: number
-  issuedAt: string
-  expirationTime: string
-  notBefore: string
-  requestId: string
-  resources: string[]
-}
-
 export default function HomePage() {
   const [isConnecting, setIsConnecting] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -36,7 +24,8 @@ export default function HomePage() {
         typeof window !== "undefined" &&
         (window.location.href.includes("worldapp://") ||
           navigator.userAgent.includes("WorldApp") ||
-          navigator.userAgent.includes("MiniApp"))
+          navigator.userAgent.includes("MiniApp") ||
+          window.location.hostname.includes("worldcoin"))
 
       console.log("Is World App environment:", isWorldApp)
 
@@ -46,75 +35,66 @@ export default function HomePage() {
         return
       }
 
-      // Dynamically import and install MiniKit
-      const { MiniKit } = await import("@worldcoin/minikit-js")
-
-      // Force install MiniKit regardless of current state
+      // Try to connect with World App
       try {
+        // Dynamically import and install MiniKit
+        const { MiniKit } = await import("@worldcoin/minikit-js")
+
+        // Force install MiniKit
         MiniKit.install({
           appId: process.env.NEXT_PUBLIC_APP_ID || "app_staging_b8e2b5b5c6b8e2b5b5c6b8e2",
           enableTelemetry: true,
         })
-        console.log("MiniKit installation attempted")
-      } catch (installError) {
-        console.log("MiniKit install error (might be already installed):", installError)
-      }
 
-      // Wait a bit for installation to complete
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+        // Wait for installation
+        await new Promise((resolve) => setTimeout(resolve, 1000))
 
-      if (!MiniKit.isInstalled()) {
-        console.log("MiniKit still not installed, redirecting to dashboard")
+        if (!MiniKit.isInstalled()) {
+          throw new Error("MiniKit installation failed")
+        }
+
+        // Get nonce from server
+        const nonceRes = await fetch("/api/auth/nonce")
+        if (!nonceRes.ok) throw new Error("Failed to get authentication nonce")
+        const { nonce } = await nonceRes.json()
+
+        // Request wallet authentication
+        const walletAuth = await MiniKit.commandsAsync.walletAuth({
+          nonce,
+          requestId: crypto.randomUUID(),
+          expirationTime: new Date(Date.now() + 5 * 60 * 1000),
+          notBefore: new Date(),
+          statement: "Connect to PortugaFi",
+        })
+
+        if (walletAuth.commandPayload.status === "error") {
+          throw new Error("Wallet authentication failed")
+        }
+
+        // Verify on server
+        const loginRes = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ payload: walletAuth.commandPayload, nonce }),
+        })
+
+        if (!loginRes.ok) throw new Error("Authentication verification failed")
+
+        const { success } = await loginRes.json()
+        if (!success) throw new Error("Authentication failed")
+
+        console.log("Login successful, redirecting to dashboard")
         router.push("/dashboard")
-        return
+      } catch (worldAppError) {
+        console.error("World App connection failed:", worldAppError)
+        // Fallback to dashboard for testing
+        router.push("/dashboard")
       }
-
-      console.log("Getting nonce from server...")
-
-      // Get nonce from server
-      const nonceRes = await fetch("/api/auth/nonce")
-      if (!nonceRes.ok) throw new Error("Failed to get authentication nonce")
-      const { nonce } = await nonceRes.json()
-
-      console.log("Got nonce:", nonce)
-
-      // Request wallet authentication from World App
-      const walletAuth = await MiniKit.commandsAsync.walletAuth({
-        nonce,
-        requestId: crypto.randomUUID(),
-        expirationTime: new Date(Date.now() + 5 * 60 * 1000),
-        notBefore: new Date(),
-        statement: "Connect to PortugaFi",
-      })
-
-      console.log("Wallet auth response:", walletAuth)
-
-      if (walletAuth.commandPayload.status === "error") {
-        throw new Error("Wallet authentication failed")
-      }
-
-      const payload = walletAuth.commandPayload as MiniAppWalletAuthSuccessPayload
-
-      console.log("Authentication successful, verifying on server...")
-
-      // Verify on server
-      const loginRes = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ payload, nonce }),
-      })
-
-      if (!loginRes.ok) throw new Error("Authentication verification failed")
-
-      const { success } = await loginRes.json()
-      if (!success) throw new Error("Authentication failed")
-
-      console.log("Login successful, redirecting to dashboard")
-      router.push("/dashboard")
     } catch (err) {
       console.error("Wallet connection error:", err)
-      // For testing, redirect to dashboard even on error
-      router.push("/dashboard")
+      setError(err instanceof Error ? err.message : "Failed to connect wallet")
+      // Still redirect to dashboard for testing
+      setTimeout(() => router.push("/dashboard"), 2000)
     } finally {
       setIsConnecting(false)
     }
@@ -144,6 +124,7 @@ export default function HomePage() {
           {error && (
             <div className="mb-6 p-4 bg-red-500/20 border border-red-500/30 rounded-lg">
               <p className="text-red-200 text-sm">{error}</p>
+              <p className="text-red-200 text-xs mt-2">Redirecting to dashboard...</p>
             </div>
           )}
 

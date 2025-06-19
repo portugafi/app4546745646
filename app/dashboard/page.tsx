@@ -59,6 +59,14 @@ function Scene() {
   )
 }
 
+function LoadingFallback() {
+  return (
+    <div className="flex items-center justify-center h-full">
+      <div className="text-white">Loading 3D Menu...</div>
+    </div>
+  )
+}
+
 export default function Dashboard() {
   const router = useRouter()
   const [user, setUser] = useState<DashboardUser | null>(null)
@@ -70,11 +78,16 @@ export default function Dashboard() {
 
   const checkSession = async () => {
     try {
-      const response = await fetch("/api/auth/session")
+      const response = await fetch("/api/auth/session", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
 
       if (response.ok) {
         const data = await response.json()
-        if (data.authenticated) {
+        if (data.authenticated && data.user) {
           setUser(data.user)
         } else {
           // Create a mock user for testing
@@ -154,20 +167,32 @@ export default function Dashboard() {
         </Button>
       </div>
 
-      {/* 3D Menu - More compact */}
-      <Canvas camera={{ position: [0, 0, 4], fov: 60 }}>
-        <Suspense fallback={null}>
-          <Scene />
-          <OrbitControls
-            enableZoom={false}
-            enablePan={false}
-            maxPolarAngle={Math.PI / 2}
-            minPolarAngle={Math.PI / 2}
-            autoRotate={true}
-            autoRotateSpeed={0.5}
-          />
-        </Suspense>
-      </Canvas>
+      {/* 3D Menu - More compact with error boundary */}
+      <div className="h-full">
+        <Canvas
+          camera={{ position: [0, 0, 4], fov: 60 }}
+          gl={{
+            preserveDrawingBuffer: true,
+            powerPreference: "high-performance",
+            antialias: false,
+          }}
+          onCreated={({ gl }) => {
+            gl.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+          }}
+        >
+          <Suspense fallback={<LoadingFallback />}>
+            <Scene />
+            <OrbitControls
+              enableZoom={false}
+              enablePan={false}
+              maxPolarAngle={Math.PI / 2}
+              minPolarAngle={Math.PI / 2}
+              autoRotate={true}
+              autoRotateSpeed={0.5}
+            />
+          </Suspense>
+        </Canvas>
+      </div>
 
       {/* Instructions */}
       <div className="absolute bottom-4 left-4 right-4 text-center">
