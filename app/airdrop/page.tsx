@@ -304,7 +304,7 @@ export default function AirdropPage() {
             PTF Airdrop
           </span>
         </h1>
-        <p className="text-gray-400 text-sm mt-1">Claim your daily TPF tokens</p>
+        <p className="text-gray-400 text-sm mt-1">Claim your daily PTF tokens</p>
       </motion.div>
 
       {/* Contract Info */}
