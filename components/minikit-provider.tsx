@@ -7,23 +7,34 @@ export function MiniKitProvider({ children }: { children: ReactNode }) {
     // Verificar se estamos no lado do cliente
     if (typeof window === "undefined") return
 
+    // Check if we're in World App environment
+    const isWorldApp =
+      window.location.href.includes("worldapp://") ||
+      navigator.userAgent.includes("WorldApp") ||
+      navigator.userAgent.includes("MiniApp")
+
+    if (!isWorldApp) {
+      console.log("Not in World App environment, skipping MiniKit installation")
+      return
+    }
+
     try {
-      // Configurar o MiniKit apenas se não estiver já instalado
+      // Configurar o MiniKit
       ;(async () => {
         const { MiniKit } = await import("@worldcoin/minikit-js")
 
-        if (!MiniKit.isInstalled()) {
+        try {
           MiniKit.install({
             appId: process.env.NEXT_PUBLIC_APP_ID || "app_staging_b8e2b5b5c6b8e2b5b5c6b8e2",
             enableTelemetry: true,
           })
           console.log("MiniKit installed successfully")
-        } else {
-          console.log("MiniKit already installed")
+        } catch (installError) {
+          console.log("MiniKit install error (might be already installed):", installError)
         }
       })()
     } catch (error) {
-      console.error("Error installing MiniKit:", error)
+      console.error("Error with MiniKit:", error)
     }
   }, [])
 

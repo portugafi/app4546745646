@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Wallet, ArrowRight, Loader2 } from "lucide-react"
@@ -22,29 +22,7 @@ type MiniAppWalletAuthSuccessPayload = {
 export default function HomePage() {
   const [isConnecting, setIsConnecting] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [miniKitReady, setMiniKitReady] = useState(false)
   const router = useRouter()
-
-  useEffect(() => {
-    checkMiniKitStatus()
-  }, [])
-
-  const checkMiniKitStatus = async () => {
-    try {
-      if (typeof window === "undefined") return
-
-      // Dynamically import the SDK to avoid SSR issues
-      const { MiniKit } = await import("@worldcoin/minikit-js")
-
-      console.log("MiniKit imported successfully")
-      console.log("MiniKit.isInstalled():", MiniKit.isInstalled())
-
-      setMiniKitReady(true)
-    } catch (error) {
-      console.error("Error checking MiniKit:", error)
-      setMiniKitReady(true) // Allow testing even if MiniKit fails
-    }
-  }
 
   const handleConnectWallet = async () => {
     try {
@@ -53,11 +31,40 @@ export default function HomePage() {
 
       console.log("Starting wallet connection process...")
 
-      // Dynamically import the SDK to avoid SSR issues
+      // Check if we're in World App environment
+      const isWorldApp =
+        typeof window !== "undefined" &&
+        (window.location.href.includes("worldapp://") ||
+          navigator.userAgent.includes("WorldApp") ||
+          navigator.userAgent.includes("MiniApp"))
+
+      console.log("Is World App environment:", isWorldApp)
+
+      if (!isWorldApp) {
+        console.log("Not in World App, redirecting to dashboard for testing")
+        router.push("/dashboard")
+        return
+      }
+
+      // Dynamically import and install MiniKit
       const { MiniKit } = await import("@worldcoin/minikit-js")
 
+      // Force install MiniKit regardless of current state
+      try {
+        MiniKit.install({
+          appId: process.env.NEXT_PUBLIC_APP_ID || "app_staging_b8e2b5b5c6b8e2b5b5c6b8e2",
+          enableTelemetry: true,
+        })
+        console.log("MiniKit installation attempted")
+      } catch (installError) {
+        console.log("MiniKit install error (might be already installed):", installError)
+      }
+
+      // Wait a bit for installation to complete
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+
       if (!MiniKit.isInstalled()) {
-        console.log("World App not detected, redirecting to dashboard for testing")
+        console.log("MiniKit still not installed, redirecting to dashboard")
         router.push("/dashboard")
         return
       }
@@ -143,7 +150,7 @@ export default function HomePage() {
           {/* Connect Wallet Button */}
           <Button
             onClick={handleConnectWallet}
-            disabled={isConnecting || !miniKitReady}
+            disabled={isConnecting}
             className="w-full bg-gradient-to-r from-green-600 to-red-600 hover:from-green-700 hover:to-red-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isConnecting ? (

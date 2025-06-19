@@ -21,14 +21,14 @@ function MenuItem({ position, text, onClick, color = "#006600" }: any) {
     <group position={position}>
       <Text3D
         font="/fonts/Geist_Bold.json"
-        size={0.5}
-        height={0.1}
-        curveSegments={12}
+        size={0.3}
+        height={0.05}
+        curveSegments={8}
         bevelEnabled
-        bevelThickness={0.02}
-        bevelSize={0.02}
+        bevelThickness={0.01}
+        bevelSize={0.01}
         bevelOffset={0}
-        bevelSegments={5}
+        bevelSegments={3}
         onPointerOver={() => setHovered(true)}
         onPointerOut={() => setHovered(false)}
         onClick={onClick}
@@ -46,10 +46,14 @@ function Scene() {
 
   return (
     <>
-      <ambientLight intensity={0.5} />
-      <pointLight position={[10, 10, 10]} />
-      <MenuItem position={[-2, 1, 0]} text="ABOUT" onClick={() => router.push("/about")} color="#006600" />
-      <MenuItem position={[2, -1, 0]} text="AIRDROP" onClick={() => router.push("/airdrop")} color="#FF0000" />
+      <ambientLight intensity={0.6} />
+      <pointLight position={[5, 5, 5]} intensity={0.8} />
+      <directionalLight position={[-5, 5, 5]} intensity={0.4} />
+
+      {/* Menu items positioned closer together */}
+      <MenuItem position={[-1.2, 0.3, 0]} text="ABOUT" onClick={() => router.push("/about")} color="#006600" />
+      <MenuItem position={[1.2, -0.3, 0]} text="AIRDROP" onClick={() => router.push("/airdrop")} color="#FF0000" />
+
       <Environment preset="city" />
     </>
   )
@@ -150,17 +154,24 @@ export default function Dashboard() {
         </Button>
       </div>
 
-      {/* 3D Menu */}
-      <Canvas camera={{ position: [0, 0, 8], fov: 50 }}>
+      {/* 3D Menu - More compact */}
+      <Canvas camera={{ position: [0, 0, 4], fov: 60 }}>
         <Suspense fallback={null}>
           <Scene />
-          <OrbitControls enableZoom={false} enablePan={false} />
+          <OrbitControls
+            enableZoom={false}
+            enablePan={false}
+            maxPolarAngle={Math.PI / 2}
+            minPolarAngle={Math.PI / 2}
+            autoRotate={true}
+            autoRotateSpeed={0.5}
+          />
         </Suspense>
       </Canvas>
 
       {/* Instructions */}
       <div className="absolute bottom-4 left-4 right-4 text-center">
-        <p className="text-white/70 text-sm">Click on menu items to navigate</p>
+        <p className="text-white/70 text-sm">Click on menu items to navigate • Drag to rotate</p>
       </div>
     </div>
   )
