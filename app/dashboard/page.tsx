@@ -2,11 +2,17 @@
 
 import { Canvas } from "@react-three/fiber"
 import { OrbitControls, Text3D, Environment } from "@react-three/drei"
-import { useState, Suspense } from "react"
+import { useState, Suspense, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { LogOut } from "lucide-react"
 import Image from "next/image"
+
+interface DashboardUser {
+  id: string
+  walletAddress: string
+  authTime: string
+}
 
 function MenuItem({ position, text, onClick, color = "#006600" }: any) {
   const [hovered, setHovered] = useState(false)
@@ -51,6 +57,51 @@ function Scene() {
 
 export default function Dashboard() {
   const router = useRouter()
+  const [user, setUser] = useState<DashboardUser | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    checkSession()
+  }, [])
+
+  const checkSession = async () => {
+    try {
+      const response = await fetch("/api/auth/session")
+      if (response.ok) {
+        const data = await response.json()
+        if (data.authenticated) {
+          setUser(data.user)
+        } else {
+          router.push("/")
+        }
+      } else {
+        router.push("/")
+      }
+    } catch (error) {
+      console.error("Session check failed:", error)
+      router.push("/")
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" })
+      router.push("/")
+    } catch (error) {
+      console.error("Logout failed:", error)
+      router.push("/")
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="h-screen bg-gradient-to-br from-green-900 via-red-900 to-yellow-800 flex items-center justify-center">
+        <div className="text-white text-xl">Loading...</div>
+      </div>
+    )
+  }
 
   return (
     <div className="h-screen bg-gradient-to-br from-green-900 via-red-900 to-yellow-800 relative">
@@ -58,12 +109,19 @@ export default function Dashboard() {
       <div className="absolute top-0 left-0 right-0 z-10 p-4 flex justify-between items-center">
         <div className="flex items-center">
           <div className="w-10 h-10 relative mr-3">
-            <Image src="/portugalfi-logo.png" alt="PortugalFi Logo" fill className="object-contain" />
+            <Image src="/portugalfi-logo.png" alt="PortugaFi Logo" fill className="object-contain" />
           </div>
-          <h1 className="text-xl font-bold text-white">PortugalFi</h1>
+          <div>
+            <h1 className="text-xl font-bold text-white">PortugaFi</h1>
+            {user && (
+              <p className="text-xs text-yellow-200">
+                {user.walletAddress.slice(0, 6)}...{user.walletAddress.slice(-4)}
+              </p>
+            )}
+          </div>
         </div>
         <Button
-          onClick={() => router.push("/")}
+          onClick={handleLogout}
           variant="outline"
           size="sm"
           className="bg-white/10 border-white/20 text-white hover:bg-white/20"

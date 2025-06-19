@@ -24,9 +24,9 @@ export default function AboutPage() {
         </Button>
         <div className="flex items-center">
           <div className="w-8 h-8 relative mr-2">
-            <Image src="/portugalfi-logo.png" alt="PortugalFi Logo" fill className="object-contain" />
+            <Image src="/portugalfi-logo.png" alt="PortugaFi Logo" fill className="object-contain" />
           </div>
-          <span className="text-white font-semibold">PortugalFi</span>
+          <span className="text-white font-semibold">PortugaFi</span>
         </div>
       </div>
 
@@ -34,9 +34,9 @@ export default function AboutPage() {
         {/* Hero Section */}
         <div className="text-center mb-12">
           <div className="w-32 h-32 mx-auto mb-6 relative">
-            <Image src="/portugalfi-logo.png" alt="PortugalFi Logo" fill className="object-contain" />
+            <Image src="/portugalfi-logo.png" alt="PortugaFi Logo" fill className="object-contain" />
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">About PortugalFi</h1>
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">About PortugaFi</h1>
           <p className="text-xl text-yellow-200 max-w-2xl mx-auto">
             Dedicated to Portuguese heritage, culture, and building a stable progressive economy
           </p>
@@ -81,7 +81,7 @@ export default function AboutPage() {
             <h2 className="text-2xl font-bold text-white mb-6">Our Mission</h2>
             <div className="space-y-4 text-yellow-200">
               <p>
-                PortugalFi is dedicated to the Portuguese status and its rich history, vibrant culture, and remarkable
+                PortugaFi is dedicated to the Portuguese status and its rich history, vibrant culture, and remarkable
                 achievements. We stand as guardians of Portuguese heritage while embracing the future of decentralized
                 finance.
               </p>

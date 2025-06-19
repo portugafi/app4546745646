@@ -56,9 +56,9 @@ export default function AirdropPage() {
         </Button>
         <div className="flex items-center">
           <div className="w-8 h-8 relative mr-2">
-            <Image src="/portugalfi-logo.png" alt="PortugalFi Logo" fill className="object-contain" />
+            <Image src="/portugalfi-logo.png" alt="PortugaFi Logo" fill className="object-contain" />
           </div>
-          <span className="text-white font-semibold">PortugalFi</span>
+          <span className="text-white font-semibold">PortugaFi</span>
         </div>
       </div>
 
@@ -68,7 +68,7 @@ export default function AirdropPage() {
           <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-yellow-400 to-red-600 rounded-full flex items-center justify-center animate-pulse">
             <Gift className="w-10 h-10 text-white" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">PortugalFi Airdrop</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">PortugaFi Airdrop</h1>
           <p className="text-xl text-yellow-200">Receive PTF tokens for free!</p>
         </div>
 
@@ -149,7 +149,7 @@ export default function AirdropPage() {
               <div className="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center mr-3 mt-0.5">
                 <span className="text-white text-sm font-bold">1</span>
               </div>
-              <p>Connect your compatible wallet</p>
+              <p>Connect your World wallet</p>
             </div>
             <div className="flex items-start">
               <div className="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center mr-3 mt-0.5">
@@ -161,7 +161,7 @@ export default function AirdropPage() {
               <div className="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center mr-3 mt-0.5">
                 <span className="text-white text-sm font-bold">3</span>
               </div>
-              <p>Confirm the transaction in your wallet</p>
+              <p>Confirm the transaction in World App</p>
             </div>
             <div className="flex items-start">
               <div className="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center mr-3 mt-0.5">

@@ -3,21 +3,78 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Wallet, ArrowRight } from "lucide-react"
+import { Wallet, ArrowRight, Loader2 } from "lucide-react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 
+type MiniAppWalletAuthSuccessPayload = {
+  address: string
+  signature: string
+  message: string
+  chainId: number
+  issuedAt: string
+  expirationTime: string
+  notBefore: string
+  requestId: string
+  resources: string[]
+}
+
 export default function HomePage() {
   const [isConnecting, setIsConnecting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const router = useRouter()
 
-  const handleConnectWallet = () => {
-    setIsConnecting(true)
-    // Simulate wallet connection
-    setTimeout(() => {
-      setIsConnecting(false)
+  const handleConnectWallet = async () => {
+    try {
+      setIsConnecting(true)
+      setError(null)
+
+      // Dynamically import the SDK to avoid SSR issues
+      const { MiniKit } = await import("@worldcoin/minikit-js")
+
+      if (!MiniKit.isInstalled()) {
+        throw new Error("World App not detected. Please open this app in World App.")
+      }
+
+      // Get nonce from server
+      const nonceRes = await fetch("/api/auth/nonce")
+      if (!nonceRes.ok) throw new Error("Failed to get authentication nonce")
+      const { nonce } = await nonceRes.json()
+
+      // Request wallet authentication from World App
+      const walletAuth = await MiniKit.commandsAsync.walletAuth({
+        nonce,
+        requestId: crypto.randomUUID(),
+        expirationTime: new Date(Date.now() + 5 * 60 * 1000),
+        notBefore: new Date(),
+        statement: "Connect to PortugaFi",
+      })
+
+      if (walletAuth.commandPayload.status === "error") {
+        throw new Error("Wallet authentication failed")
+      }
+
+      const payload = walletAuth.commandPayload as MiniAppWalletAuthSuccessPayload
+
+      // Verify on server
+      const loginRes = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ payload, nonce }),
+      })
+
+      if (!loginRes.ok) throw new Error("Authentication verification failed")
+
+      const { success } = await loginRes.json()
+      if (!success) throw new Error("Authentication failed")
+
       router.push("/dashboard")
-    }, 2000)
+    } catch (err) {
+      console.error("Wallet connection error:", err)
+      setError(err instanceof Error ? err.message : "Failed to connect wallet")
+    } finally {
+      setIsConnecting(false)
+    }
   }
 
   return (
@@ -31,14 +88,21 @@ export default function HomePage() {
 
       <Card className="w-full max-w-md bg-white/10 backdrop-blur-lg border-white/20 shadow-2xl">
         <CardContent className="p-8 text-center">
-          {/* PortugalFi Logo */}
+          {/* PortugaFi Logo */}
           <div className="mb-8">
             <div className="w-24 h-24 mx-auto mb-4 relative">
-              <Image src="/portugalfi-logo.png" alt="PortugalFi Logo" fill className="object-contain" />
+              <Image src="/portugalfi-logo.png" alt="PortugaFi Logo" fill className="object-contain" />
             </div>
-            <h1 className="text-3xl font-bold text-white mb-2">PortugalFi</h1>
+            <h1 className="text-3xl font-bold text-white mb-2">PortugaFi</h1>
             <p className="text-yellow-200">Connect to the future of Portuguese finance</p>
           </div>
+
+          {/* Error Message */}
+          {error && (
+            <div className="mb-6 p-4 bg-red-500/20 border border-red-500/30 rounded-lg">
+              <p className="text-red-200 text-sm">{error}</p>
+            </div>
+          )}
 
           {/* Connect Wallet Button */}
           <Button
@@ -48,19 +112,26 @@ export default function HomePage() {
           >
             {isConnecting ? (
               <div className="flex items-center justify-center">
-                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                <Loader2 className="animate-spin h-5 w-5 mr-2" />
                 Connecting...
               </div>
             ) : (
               <div className="flex items-center justify-center">
                 <Wallet className="mr-2 h-5 w-5" />
-                Connect Wallet
+                Connect World Wallet
                 <ArrowRight className="ml-2 h-5 w-5" />
               </div>
             )}
           </Button>
 
-          <p className="text-sm text-yellow-200 mt-4">Connect your wallet to access the PortugalFi ecosystem</p>
+          <p className="text-sm text-yellow-200 mt-4">Connect your World wallet to access the PortugaFi ecosystem</p>
+
+          {/* World App Info */}
+          <div className="mt-6 p-4 bg-white/5 rounded-lg">
+            <p className="text-xs text-yellow-200/80">
+              This app requires World App. If you don't have it installed, please download it first.
+            </p>
+          </div>
         </CardContent>
       </Card>
     </div>
