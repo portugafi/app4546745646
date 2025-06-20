@@ -7,8 +7,9 @@ import { MiniKitProvider } from "@/components/minikit-provider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "PortugaFi - Portuguese Heritage & Progressive Finance",
-  description: "Dedicated to Portuguese heritage, culture, and building a stable progressive economy with TPulseFi",
+  title: "NAVEW - Next-Generation Digital Currency Platform",
+  description:
+    "NAVEW (NVW) represents the spirit of innovation, digital sovereignty and Portuguese national pride on WorldChain",
   generator: "v0.dev",
 }
 
