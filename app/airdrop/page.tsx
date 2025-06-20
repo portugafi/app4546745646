@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, CheckCircle, AlertCircle, Wallet, RefreshCw, Coins } from "lucide-react"
+import { ArrowLeft, CheckCircle, AlertCircle, Wallet, RefreshCw, Coins } from 'lucide-react'
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 import BottomNavigation from "@/components/bottom-navigation"
@@ -252,23 +252,23 @@ export default function AirdropPage() {
     if (hasClaimed || (!canClaim && timeLeft.hours + timeLeft.minutes + timeLeft.seconds > 0)) {
       return "Wait 24h Between Claims"
     }
-    return `Claim ${dailyAmount} TPF`
+    return `Claim ${dailyAmount} NVW`
   }
 
   if (isLoading && userAddress) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-red-900 via-green-900 to-yellow-800 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-blue-900 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
           <div className="text-white text-xl">Loading from World Chain...</div>
-          <div className="text-yellow-200 text-sm mt-2">Connecting to contract...</div>
+          <div className="text-cyan-200 text-sm mt-2">Connecting to contract...</div>
         </div>
       </div>
     )
   }
 
   return (
-    <main className="relative flex min-h-screen flex-col items-center pt-6 pb-20 overflow-hidden bg-gradient-to-br from-red-900 via-green-900 to-yellow-800">
+    <main className="relative flex min-h-screen flex-col items-center pt-6 pb-20 overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-blue-900">
       {/* Header */}
       <div className="flex items-center justify-between mb-6 w-full max-w-md px-4">
         <Button
@@ -282,14 +282,9 @@ export default function AirdropPage() {
         </Button>
         <div className="flex items-center">
           <div className="w-8 h-8 relative mr-2">
-            <Image
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/portugalfi-logo-nYrlfOrZ7lrgx26ivt1whF48Ts33tk.png"
-              alt="PortugaFi Logo"
-              fill
-              className="object-contain"
-            />
+            <Image src="/navew-logo.png" alt="NAVEW Logo" fill className="object-contain" />
           </div>
-          <span className="text-white font-semibold">PortugaFi</span>
+          <span className="text-white font-semibold">NAVEW</span>
         </div>
       </div>
 
@@ -300,11 +295,11 @@ export default function AirdropPage() {
         className="text-center mb-4 relative z-10"
       >
         <h1 className="text-3xl font-bold tracking-tighter">
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-200 via-white to-gray-300">
-            PTF Airdrop
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-200 via-white to-purple-300">
+            NVW Airdrop
           </span>
         </h1>
-        <p className="text-gray-400 text-sm mt-1">Claim your daily PTF tokens</p>
+        <p className="text-cyan-400 text-sm mt-1">Claim your daily NVW tokens</p>
       </motion.div>
 
       {/* Contract Info */}
@@ -320,7 +315,7 @@ export default function AirdropPage() {
               <span className="text-gray-400 text-xs">Available for Airdrop</span>
               <div className="flex items-center">
                 <span className="text-white font-medium">{formatBalance(contractBalance)}</span>
-                <span className="text-gray-400 text-xs ml-1">PTF</span>
+                <span className="text-gray-400 text-xs ml-1">NVW</span>
                 <button
                   onClick={fetchContractBalance}
                   disabled={isRefreshingBalance}
@@ -351,14 +346,9 @@ export default function AirdropPage() {
       >
         <div className="relative h-full flex items-center justify-center">
           <div className="w-24 h-24 mx-auto relative animate-bounce">
-            <Image
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/portugalfi-logo-nYrlfOrZ7lrgx26ivt1whF48Ts33tk.png"
-              alt="TPF Token"
-              fill
-              className="object-contain"
-            />
+            <Image src="/navew-logo.png" alt="NVW Token" fill className="object-contain" />
           </div>
-          <div className="absolute inset-0 w-24 h-24 mx-auto bg-gradient-to-r from-yellow-400 to-red-500 rounded-full opacity-20 animate-ping"></div>
+          <div className="absolute inset-0 w-24 h-24 mx-auto bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full opacity-20 animate-ping"></div>
         </div>
       </motion.div>
 
@@ -372,7 +362,7 @@ export default function AirdropPage() {
         <button
           className={`w-56 py-3 px-5 rounded-full ${
             canClaim && walletConnected && !apiError && !isLoading && !hasClaimed
-              ? "bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white border-green-400"
+              ? "bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-white border-cyan-400"
               : !walletConnected || apiError
                 ? "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-blue-400"
                 : "bg-gradient-to-b from-gray-700 to-gray-800 text-gray-400 border-gray-600"
@@ -409,10 +399,10 @@ export default function AirdropPage() {
 
       {/* Success Message */}
       {(claimSuccess || success) && (
-        <div className="mt-4 p-2 bg-green-900/30 border border-green-500/30 rounded-lg text-center max-w-md mx-4">
+        <div className="mt-4 p-2 bg-cyan-900/30 border border-cyan-500/30 rounded-lg text-center max-w-md mx-4">
           <div className="flex items-center justify-center">
-            <CheckCircle className="mr-1 text-green-400" size={16} />
-            <span className="font-medium text-green-400 text-sm">{success || "Tokens claimed successfully!"}</span>
+            <CheckCircle className="mr-1 text-cyan-400" size={16} />
+            <span className="font-medium text-cyan-400 text-sm">{success || "Tokens claimed successfully!"}</span>
           </div>
         </div>
       )}
