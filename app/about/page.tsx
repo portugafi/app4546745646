@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowLeft, Rocket, Shield, Globe, Coins, Users, Target } from "lucide-react"
+import { ArrowLeft, Rocket, Shield, Globe } from "lucide-react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 import BottomNavigation from "@/components/bottom-navigation"
@@ -20,7 +20,7 @@ export default function AboutPage() {
       </div>
 
       {/* Header */}
-      <div className="relative z-10 flex items-center justify-between mb-8">
+      <div className="relative z-10 flex items-center justify-between mb-4">
         <Button
           onClick={() => router.back()}
           variant="outline"
@@ -38,178 +38,130 @@ export default function AboutPage() {
         </div>
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto">
-        {/* Hero Section */}
-        <div className="text-center mb-12">
-          <div className="w-24 h-24 mx-auto mb-6 relative animate-pulse">
+      <div className="relative z-10 max-w-lg mx-auto">
+        {/* Hero Section - Ultra Compact */}
+        <div className="text-center mb-4">
+          <div className="w-12 h-12 mx-auto mb-2 relative animate-pulse">
             <Image src="/navew-logo.png" alt="NAVEW Logo" fill className="object-contain" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">About NAVEW</h1>
-          <p className="text-xl text-cyan-200 max-w-2xl mx-auto">
-            Next-Generation Digital Currency Platform representing Portuguese innovation and digital sovereignty
-          </p>
+          <h1 className="text-xl font-bold text-white mb-1">About NAVEW</h1>
+          <p className="text-sm text-cyan-200">Next-Generation Digital Currency</p>
         </div>
 
-        {/* Overview Card */}
-        <Card className="bg-white/10 backdrop-blur-lg border-white/20 mb-8">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center text-2xl">
-              <Globe className="w-8 h-8 mr-3 text-cyan-400" />
+        {/* Main Content - Ultra Compact */}
+        <Card className="bg-white/10 backdrop-blur-lg border-white/20 mb-4">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-white flex items-center text-sm">
+              <Globe className="w-4 h-4 mr-1 text-cyan-400" />
               Vision Overview
             </CardTitle>
           </CardHeader>
-          <CardContent className="text-cyan-200 space-y-4">
-            <p>
-              <strong className="text-white">NAVEW (NVW)</strong> is a crypto asset created on the Worldchain network
-              (ERC-20) that represents the spirit of innovation, digital sovereignty and Portuguese national pride.
-            </p>
-            <p>
-              The project aims to unite the global community of Portuguese speakers with blockchain technology, rewards,
-              staking and access via decentralized applications (dApps).
-            </p>
+          <CardContent className="space-y-3">
+            <div className="bg-white/5 rounded p-3">
+              <p className="text-cyan-200 leading-tight text-xs">
+                <strong className="text-white text-xs">NAVEW (NVW)</strong> is a crypto asset created on Worldchain
+                (ERC-20) representing innovation, digital sovereignty and Portuguese national pride.
+              </p>
+            </div>
+            <div className="bg-white/5 rounded p-3">
+              <p className="text-cyan-200 leading-tight text-xs">
+                <strong className="text-white text-xs">Mission:</strong> Unite the global Portuguese-speaking community
+                with blockchain technology, rewards, staking and decentralized applications.
+              </p>
+            </div>
           </CardContent>
         </Card>
 
-        {/* Technical Specs */}
-        <Card className="bg-white/10 backdrop-blur-lg border-white/20 mb-8">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center text-2xl">
-              <Shield className="w-8 h-8 mr-3 text-purple-400" />
-              Technical Specifications
+        {/* Technical Specs - Ultra Compact */}
+        <Card className="bg-white/10 backdrop-blur-lg border-white/20 mb-4">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-white flex items-center text-sm">
+              <Shield className="w-4 h-4 mr-1 text-purple-400" />
+              Technical Specs
             </CardTitle>
           </CardHeader>
-          <CardContent className="text-cyan-200">
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span className="text-white font-semibold">Token Name:</span>
-                  <span>NAVEW</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-white font-semibold">Symbol:</span>
-                  <span>NVW</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-white font-semibold">Network:</span>
-                  <span>Worldchain (ERC-20)</span>
-                </div>
+          <CardContent>
+            <div className="grid grid-cols-2 gap-3 mb-3">
+              <div className="bg-white/5 rounded p-2">
+                <p className="text-white font-semibold text-xs">Token:</p>
+                <p className="text-cyan-200 text-xs">NAVEW (NVW)</p>
               </div>
-              <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span className="text-white font-semibold">Max Supply:</span>
-                  <span>1,000,000,000 NVW</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-white font-semibold">Type:</span>
-                  <span>Utility Token</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-white font-semibold">Uses:</span>
-                  <span>Staking, Rewards, NFTs</span>
-                </div>
+              <div className="bg-white/5 rounded p-2">
+                <p className="text-white font-semibold text-xs">Network:</p>
+                <p className="text-cyan-200 text-xs">Worldchain</p>
+              </div>
+              <div className="bg-white/5 rounded p-2">
+                <p className="text-white font-semibold text-xs">Supply:</p>
+                <p className="text-cyan-200 text-xs">1B NVW</p>
+              </div>
+              <div className="bg-white/5 rounded p-2">
+                <p className="text-white font-semibold text-xs">Type:</p>
+                <p className="text-cyan-200 text-xs">Utility</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-3 gap-2">
+              <div className="text-center bg-white/5 rounded p-2">
+                <div className="text-sm mb-1">🎁</div>
+                <h3 className="text-white font-semibold text-xs mb-1">Daily Claims</h3>
+                <p className="text-cyan-200 text-xs">Free rewards</p>
+              </div>
+              <div className="text-center bg-white/5 rounded p-2">
+                <div className="text-sm mb-1">🔒</div>
+                <h3 className="text-white font-semibold text-xs mb-1">Staking</h3>
+                <p className="text-cyan-200 text-xs">Earn rewards</p>
+              </div>
+              <div className="text-center bg-white/5 rounded p-2">
+                <div className="text-sm mb-1">🎨</div>
+                <h3 className="text-white font-semibold text-xs mb-1">NFTs</h3>
+                <p className="text-cyan-200 text-xs">Culture</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Features Grid */}
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
-          <Card className="bg-white/10 backdrop-blur-lg border-white/20">
-            <CardContent className="p-6 text-center">
-              <Coins className="w-12 h-12 mx-auto mb-4 text-cyan-400" />
-              <h3 className="text-xl font-bold text-white mb-2">Daily Rewards</h3>
-              <p className="text-cyan-200 text-sm">Free daily claims verified via WorldID</p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white/10 backdrop-blur-lg border-white/20">
-            <CardContent className="p-6 text-center">
-              <Target className="w-12 h-12 mx-auto mb-4 text-purple-400" />
-              <h3 className="text-xl font-bold text-white mb-2">Staking System</h3>
-              <p className="text-cyan-200 text-sm">Earn passive rewards by staking NVW tokens</p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white/10 backdrop-blur-lg border-white/20">
-            <CardContent className="p-6 text-center">
-              <Users className="w-12 h-12 mx-auto mb-4 text-blue-400" />
-              <h3 className="text-xl font-bold text-white mb-2">Community</h3>
-              <p className="text-cyan-200 text-sm">Unite Portuguese speakers globally through Web3</p>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Roadmap */}
-        <Card className="bg-white/10 backdrop-blur-lg border-white/20 mb-8">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center text-2xl">
-              <Rocket className="w-8 h-8 mr-3 text-cyan-400" />
+        {/* Roadmap - Ultra Compact */}
+        <Card className="bg-white/10 backdrop-blur-lg border-white/20 mb-4">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-white flex items-center text-sm">
+              <Rocket className="w-4 h-4 mr-1 text-cyan-400" />
               Roadmap
             </CardTitle>
           </CardHeader>
-          <CardContent className="text-cyan-200">
-            <div className="space-y-6">
-              <div className="flex items-start space-x-4">
-                <div className="w-4 h-4 bg-green-400 rounded-full mt-1 flex-shrink-0"></div>
-                <div>
-                  <h4 className="text-white font-semibold">✅ Token Creation (ERC-20) Worldchain</h4>
-                  <p className="text-sm">Smart contract implementation and deployment</p>
-                </div>
+          <CardContent>
+            <div className="space-y-2">
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-green-400 rounded-full flex-shrink-0"></div>
+                <p className="text-xs text-cyan-200">✅ Token Creation (ERC-20)</p>
               </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="w-4 h-4 bg-cyan-400 rounded-full mt-1 flex-shrink-0"></div>
-                <div>
-                  <h4 className="text-white font-semibold">🔍 Contract Verification</h4>
-                  <p className="text-sm">Worldchain integration and security audit</p>
-                </div>
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-cyan-400 rounded-full flex-shrink-0"></div>
+                <p className="text-xs text-cyan-200">🔍 Contract Verification</p>
               </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="w-4 h-4 bg-purple-400 rounded-full mt-1 flex-shrink-0"></div>
-                <div>
-                  <h4 className="text-white font-semibold">📱 Worldcoin Mini-App Launch</h4>
-                  <p className="text-sm">Native rewards and staking application</p>
-                </div>
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-purple-400 rounded-full flex-shrink-0"></div>
+                <p className="text-xs text-cyan-200">📱 Worldcoin Mini-App</p>
               </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="w-4 h-4 bg-blue-400 rounded-full mt-1 flex-shrink-0"></div>
-                <div>
-                  <h4 className="text-white font-semibold">🎁 Free Daily Claims</h4>
-                  <p className="text-sm">Verified token distribution system</p>
-                </div>
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-blue-400 rounded-full flex-shrink-0"></div>
+                <p className="text-xs text-cyan-200">🎁 Daily Claims System</p>
               </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="w-4 h-4 bg-gray-400 rounded-full mt-1 flex-shrink-0"></div>
-                <div>
-                  <h4 className="text-white font-semibold">🎨 NFTs and Culture (2026)</h4>
-                  <p className="text-sm">Explorer, Discoverer, Culture Guardian collections</p>
-                </div>
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-gray-400 rounded-full flex-shrink-0"></div>
+                <p className="text-xs text-gray-400">🎨 NFTs & Culture (2026)</p>
               </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="w-4 h-4 bg-gray-400 rounded-full mt-1 flex-shrink-0"></div>
-                <div>
-                  <h4 className="text-white font-semibold">🤝 Real Adoption (2026)</h4>
-                  <p className="text-sm">Partnerships with Portuguese regional businesses</p>
-                </div>
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-gray-400 rounded-full flex-shrink-0"></div>
+                <p className="text-xs text-gray-400">🤝 Real Adoption (2026)</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Mission */}
-        <Card className="bg-gradient-to-r from-cyan-500/10 to-purple-500/10 backdrop-blur-lg border-cyan-500/20">
-          <CardContent className="p-8 text-center">
-            <h3 className="text-2xl font-bold text-white mb-4">🌍 Mission</h3>
-            <p className="text-cyan-200 text-lg leading-relaxed">
-              Promote a digital currency that unites culture, innovation and sovereignty, reinforcing Portugal's
-              presence in the crypto and Web3 world.
-            </p>
-          </CardContent>
-        </Card>
+        {/* Footer - Compact */}
+        <div className="text-center">
+          <p className="text-xs text-cyan-300/60 mb-1">v1.0.0 - © NAVEW 2025</p>
+          <p className="text-xs text-cyan-300/60">Built with 💙 by NAVEW Labs 🇵🇹</p>
+        </div>
       </div>
 
       <BottomNavigation />
