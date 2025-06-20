@@ -24,13 +24,13 @@ export default function BottomNavigation() {
       icon: <Gift className="w-6 h-6" />,
       label: "Airdrop",
       path: "/airdrop",
-      color: "from-yellow-500 to-orange-500",
+      color: "from-cyan-500 to-blue-500",
     },
     {
       icon: <Info className="w-6 h-6" />,
       label: "About",
       path: "/about",
-      color: "from-blue-500 to-purple-500",
+      color: "from-purple-500 to-blue-500",
     },
   ]
 
@@ -64,7 +64,7 @@ export default function BottomNavigation() {
 
       {/* Bottom Navigation Bar */}
       <div className="fixed bottom-0 left-0 right-0 z-30">
-        <div className="bg-gradient-to-r from-green-600 via-red-600 to-yellow-600 p-4 pb-6">
+        <div className="bg-gradient-to-r from-slate-800 via-purple-800 to-blue-800 p-4 pb-6">
           <div className="flex items-center justify-between max-w-sm mx-auto">
             {/* Left spacer */}
             <div className="w-12"></div>
@@ -73,18 +73,13 @@ export default function BottomNavigation() {
             <button
               onClick={handleCenterButtonClick}
               className={`relative w-16 h-16 rounded-full bg-white/20 backdrop-blur-lg border-2 border-white/30 flex items-center justify-center transition-all duration-300 transform hover:scale-110 -translate-y-2 ${
-                isGlowing ? "animate-pulse shadow-lg shadow-yellow-400/50 scale-110" : ""
+                isGlowing ? "animate-pulse shadow-lg shadow-cyan-400/50 scale-110" : ""
               }`}
             >
               <div className="w-10 h-10 relative">
-                <Image
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/portugalfi-logo-nYrlfOrZ7lrgx26ivt1whF48Ts33tk.png"
-                  alt="PortugaFi Logo"
-                  fill
-                  className="object-contain"
-                />
+                <Image src="/navew-logo.png" alt="NAVEW Logo" fill className="object-contain" />
               </div>
-              {isGlowing && <div className="absolute inset-0 rounded-full bg-yellow-400/30 animate-ping"></div>}
+              {isGlowing && <div className="absolute inset-0 rounded-full bg-cyan-400/30 animate-ping"></div>}
             </button>
 
             {/* Right - Settings - Raised */}
