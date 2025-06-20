@@ -21,12 +21,12 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-900 via-red-900 to-yellow-800 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-blue-900 p-4">
       {/* Animated background effects */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-green-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-red-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
-        <div className="absolute top-40 left-40 w-80 h-80 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-4000"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-cyan-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
+        <div className="absolute top-40 left-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-4000"></div>
       </div>
 
       {/* Header */}
@@ -42,14 +42,9 @@ export default function SettingsPage() {
         </Button>
         <div className="flex items-center">
           <div className="w-8 h-8 relative mr-2">
-            <Image
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/portugalfi-logo-nYrlfOrZ7lrgx26ivt1whF48Ts33tk.png"
-              alt="PortugaFi Logo"
-              fill
-              className="object-contain"
-            />
+            <Image src="/navew-logo.png" alt="NAVEW Logo" fill className="object-contain" />
           </div>
-          <span className="text-white font-semibold">PortugaFi</span>
+          <span className="text-white font-semibold">NAVEW</span>
         </div>
       </div>
 
@@ -57,15 +52,10 @@ export default function SettingsPage() {
         {/* Hero Section */}
         <div className="text-center mb-12">
           <div className="w-24 h-24 mx-auto mb-6 relative animate-pulse">
-            <Image
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/portugalfi-logo-nYrlfOrZ7lrgx26ivt1whF48Ts33tk.png"
-              alt="PortugaFi Logo"
-              fill
-              className="object-contain"
-            />
+            <Image src="/navew-logo.png" alt="NAVEW Logo" fill className="object-contain" />
           </div>
           <h1 className="text-4xl font-bold text-white mb-4">Settings</h1>
-          <p className="text-xl text-yellow-200">Manage your account</p>
+          <p className="text-xl text-cyan-200">Manage your account</p>
         </div>
 
         {/* Disconnect Wallet Card */}
