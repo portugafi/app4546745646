@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, CheckCircle, AlertCircle, Wallet, RefreshCw, Coins } from 'lucide-react'
+import { ArrowLeft, CheckCircle, AlertCircle, Wallet, RefreshCw, Coins } from "lucide-react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 import BottomNavigation from "@/components/bottom-navigation"
