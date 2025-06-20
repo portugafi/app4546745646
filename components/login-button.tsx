@@ -39,7 +39,11 @@ export function LoginButton() {
   }
 
   return (
-    <Button onClick={handleLogin} disabled={isLoading}>
+    <Button
+      onClick={handleLogin}
+      disabled={isLoading}
+      className="bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-700 hover:to-purple-700"
+    >
       {isLoading ? "Conectando..." : "Conectar Carteira"}
     </Button>
   )
